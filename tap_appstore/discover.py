@@ -3,7 +3,7 @@ import singer
 from appstoreconnect import Api
 from appstoreconnect.api import APIError
 from singer.catalog import Catalog, CatalogEntry
-from tenacity import retry, stop_after_attempt, wait_fixed
+from tenacity import retry, stop_after_attempt, wait_fixed, retry_if_exception_type
 
 from tap_appstore.schema import load_schemas
 from tap_appstore.streams import STREAMS
@@ -21,6 +21,8 @@ def do_discover(client: Api) -> Catalog:
 @retry(
     stop=stop_after_attempt(5),
     wait=wait_fixed(1),
+    retry=retry_if_exception_type(APIError),
+    reraise=True
 )
 def discover(client: Api) -> Catalog:
     """
