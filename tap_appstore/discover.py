@@ -22,8 +22,6 @@ def do_discover(client: Api) -> Catalog:
     stop=stop_after_attempt(5),
     wait=wait_fixed(1),
     retry=retry_if_exception_type(APIError),
-    after=lambda retry_state: LOGGER.info(f"Retrying... Attempt {retry_state.attempt_number} "
-                                          f"failed with error: {retry_state.outcome.exception()}"),
     reraise=True
 )
 def discover(client: Api) -> Catalog:
@@ -35,11 +33,8 @@ def discover(client: Api) -> Catalog:
     for schema_name, schema in schemas.items():
         LOGGER.info("Discovering schema for %s", schema_name)
 
-        try:
-            # checking API credentials
-            assert len(client.list_users()) > 0, 'API call failed - List of users is empty'
-        except APIError as e:
-            raise Exception(f'API Call failed {e}')
+        # checking API credentials
+        assert len(client.list_users()) > 0, 'API call failed - List of users is empty'
 
         if schema_name in STREAMS:
             # create and add catalog entry
