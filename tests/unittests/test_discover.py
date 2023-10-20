@@ -11,8 +11,6 @@ class TestDiscover(unittest.TestCase):
     @patch('appstoreconnect.Api.list_users')
     @patch('time.sleep')
     def test_discover_retries_on_api_error(self, mock_sleep, mock_list_users):
-        def raise_api_exception(*args, **kwargs):
-            raise APIError('APIError')
         # Set up a side effect for the mock to raise APIError for the first 3 calls, then return an empty list
         mock_list_users.side_effect = [APIError('APIError') for _ in range(3)] + [[]]
 
