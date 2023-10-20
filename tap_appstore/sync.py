@@ -25,6 +25,8 @@ def get_selected_streams(catalog: Catalog) -> List[CatalogEntry]:
     stop=stop_after_attempt(5),
     wait=wait_fixed(1),
     retry=retry_if_exception_type(APIError),
+    after=lambda retry_state: LOGGER.info(f"Retrying... Attempt {retry_state.attempt_number} "
+                                          f"failed with error: {retry_state.outcome.exception()}"),
     reraise=True
 )
 def sync(client: Api, config, state, catalog: Catalog):
