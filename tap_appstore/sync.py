@@ -2,11 +2,14 @@ from typing import List
 
 import singer
 from appstoreconnect import Api
+from appstoreconnect.api import APIError
 from singer import CatalogEntry, Catalog
+from tenacity import stop_after_attempt, wait_fixed, retry, retry_if_exception_type
 
 from tap_appstore.streams import STREAMS
 
 LOGGER = singer.get_logger()
+
 
 def get_selected_streams(catalog: Catalog) -> List[CatalogEntry]:
     selected_streams = []
@@ -18,6 +21,14 @@ def get_selected_streams(catalog: Catalog) -> List[CatalogEntry]:
     return selected_streams
 
 
+@retry(
+    stop=stop_after_attempt(5),
+    wait=wait_fixed(1),
+    retry=retry_if_exception_type(APIError),
+    after=lambda retry_state: LOGGER.info(f"Retrying... Attempt {retry_state.attempt_number} "
+                                          f"failed with error: {retry_state.outcome.exception()}"),
+    reraise=True
+)
 def sync(client: Api, config, state, catalog: Catalog):
     for catalog_entry in get_selected_streams(catalog):
         LOGGER.info("Syncing stream %s", catalog_entry.tap_stream_id)
