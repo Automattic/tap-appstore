@@ -21,8 +21,7 @@
             "type": [
             "null",
             "string"
-            ],
-            "format" : "date"
+            ]
         },
         "vendor_identifier": {
             "type": [
@@ -40,15 +39,13 @@
             "type": [
                 "null",
                 "string"
-            ],
-            "format" : "date"
+            ]
         },
         "end_date": {
             "type": [
                 "null",
                 "string"
-            ],
-            "format" : "date"
+            ]
         },
         "quantity": {
             "type": [
