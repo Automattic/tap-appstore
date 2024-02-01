@@ -34,8 +34,7 @@
             "type" : [
                 "null",
                 "string"
-            ],
-            "format": "date"
+            ]
         },
         "app_name" : {
             "type" : [
