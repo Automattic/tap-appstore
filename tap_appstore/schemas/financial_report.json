@@ -21,8 +21,7 @@
             "type": [
             "null",
             "string"
-            ],
-            "format" : "date"
+            ]
         },
         "vendor_identifier": {
             "type": [
