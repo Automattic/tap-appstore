@@ -179,7 +179,7 @@
             "type" : [
                 "null",
                 "string"
-            ],
+            ]
         },
         "units" : {
             "type" : [
