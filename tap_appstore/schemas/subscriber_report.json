@@ -34,8 +34,7 @@
             "type" : [
                 "null",
                 "string"
-            ],
-            "format": "date"
+            ]
         },
         "app_name" : {
             "type" : [
@@ -179,8 +178,7 @@
             "type" : [
                 "null",
                 "string"
-            ],
-            "format": "date"
+            ]
         },
         "units" : {
             "type" : [
