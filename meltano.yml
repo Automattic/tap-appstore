@@ -1,0 +1,36 @@
+version: 1
+default_environment: prod
+environments:
+- name: prod
+plugins:
+  extractors:
+  - name: tap-appstore
+    namespace: tap-appstore
+    pip_url: -e .
+    capabilities:
+    - state
+    - catalog
+    - discover
+    settings:
+    - name: vendor
+      label: Vendor
+      description: Appstore vendor number.
+    - name: issuer_id
+      label: Issuer ID
+      description: Appstore issuer ID
+    - name: start_date
+      label: Start Date
+      description: Determines how much historical data will be extracted. Please be
+        aware that the larger the time period and amount of data, the longer the initial
+        extraction can be expected to take.
+    - name: key_id
+      label: Key ID
+      description: Appstore key ID.
+    - name: key_file
+      label: Key File
+      description: Appstore key file.
+  loaders:
+  - name: target-parquet
+    variant: automattic
+    pip_url: git+https://github.com/Automattic/target-parquet.git
+project_id: 181a1bcb-5ac9-442f-b1bd-08cd21752301

@@ -88,15 +88,13 @@
             "type": [
                 "null",
                 "string"
-            ],
-            "format" : "date"
+            ]
         },
         "end_date": {
             "type": [
                 "null",
                 "string"
-            ],
-            "format" : "date"
+            ]
         },
         "customer_currency": {
             "type": [
