@@ -180,7 +180,6 @@
                 "null",
                 "string"
             ],
-            "format": "date"
         },
         "units" : {
             "type" : [
